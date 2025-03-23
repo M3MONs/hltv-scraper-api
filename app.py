@@ -28,7 +28,7 @@ def results(offset: int):
     return jsonify(SM.get_result(path))
 
 
-@app.route("/results/big", methods=["GET"])
+@app.route("/results/big/", methods=["GET"])
 def big_results():
     name = "hltv_big_results"
     path = "big_results"
@@ -38,7 +38,7 @@ def big_results():
     return jsonify(SM.get_result(path))
 
 
-@app.route("/top_teams/", methods=["GET"])
+@app.route("/teams/top/", methods=["GET"])
 def top30():
     name = "hltv_top30"
     path = "top_teams"
