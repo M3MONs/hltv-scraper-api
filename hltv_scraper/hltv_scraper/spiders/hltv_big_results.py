@@ -1,6 +1,5 @@
 import scrapy
 from .parsers import ParsersFactory as PF
-from .utils import parse_match
 
 
 class HltvBigResultsSpider(scrapy.Spider):
@@ -14,5 +13,4 @@ class HltvBigResultsSpider(scrapy.Spider):
         for result in results:
             data = PF.get_parser("match").parse(result)
 
-            # print(data)
             yield data
