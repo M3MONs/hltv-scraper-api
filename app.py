@@ -1,4 +1,5 @@
 import datetime
+import os
 from flask import Flask, jsonify
 from flask_limiter import Limiter
 
@@ -12,23 +13,26 @@ limiter = Limiter(app, default_limits=["1 per second"])
 BASE_DIR = "./hltv_scraper"
 SM = SpiderManager(BASE_DIR)
 
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
 
 @app.route("/results", defaults={"offset": 0})
 @app.route("/results/<offset>", methods=["GET"])
 def results(offset: int):
     name = "hltv_results"
     path = f"results/results_{offset}"
-    args = f"-a offset={offset} -o {path}.json"
+    args = f"-a offset={offset} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
 
 
-@app.route("/big_results", methods=["GET"])
+@app.route("/results/big", methods=["GET"])
 def big_results():
     name = "hltv_big_results"
     path = "big_results"
-    args = f"-o {path}.json"
+    args = f"-o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -38,7 +42,7 @@ def big_results():
 def top30():
     name = "hltv_top30"
     path = "top_teams"
-    args = f"-o {path}.json"
+    args = f"-o {DATA_DIR}/{path}.json"
 
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -48,7 +52,7 @@ def top30():
 def upcoming_matches():
     name = "hltv_upcoming_matches"
     path = "upcoming_matches"
-    args = f"-o {path}.json"
+    args = f"-o {DATA_DIR}/{path}.json"
 
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -63,7 +67,7 @@ today = datetime.date.today()
 def news(year: str, month: str):
     name = "hltv_news"
     path = f"news/news_{year}_{month}"
-    args = f"-a year={year} -a month={month} -o {path}.json"
+    args = f"-a year={year} -a month={month} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -92,7 +96,7 @@ def team(name: str):
 def team_matches(id: str, offset: int):
     name = "hltv_team_matches"
     path = f"team_matches/{id}_{offset}"
-    args = f"-a id={id} -a offset={offset} -o {path}.json"
+    args = f"-a id={id} -a offset={offset} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -103,7 +107,7 @@ def team_matches(id: str, offset: int):
 def team_profile(id: str, team: str):
     name = "hltv_team"
     path = f"team/{team}"
-    args = f"-a team=/team/{id}/{team} -o {path}.json"
+    args = f"-a team=/team/{id}/{team} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -131,7 +135,7 @@ def player(name: str):
 def player_profile(id: str, player: str):
     name = "hltv_player"
     path = f"player/{player}"
-    args = f"-a profile=/player/{id}/{player} -o {path}.json"
+    args = f"-a profile=/player/{id}/{player} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
@@ -141,7 +145,7 @@ def match(id: str, match: str):
     name = "hltv_match"
     match_link = f"{id}/{match}"
     path = f"match/{id}_{match}"
-    args = f"-a match={match_link} -o {path}.json"
+    args = f"-a match={match_link} -o {DATA_DIR}/{path}.json"
     
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
