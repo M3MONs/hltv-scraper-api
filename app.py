@@ -17,8 +17,8 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 
-@app.route("/results", defaults={"offset": 0})
-@app.route("/results/<offset>", methods=["GET"])
+@app.route("/results/", defaults={"offset": 0})
+@app.route("/results/<offset>/", methods=["GET"])
 def results(offset: int):
     name = "hltv_results"
     path = f"results/results_{offset}"
@@ -38,7 +38,7 @@ def big_results():
     return jsonify(SM.get_result(path))
 
 
-@app.route("/top_teams", methods=["GET"])
+@app.route("/top_teams/", methods=["GET"])
 def top30():
     name = "hltv_top30"
     path = "top_teams"
@@ -48,7 +48,7 @@ def top30():
     return jsonify(SM.get_result(path))
 
 
-@app.route("/upcoming_matches", methods=["GET"])
+@app.route("/upcoming_matches/", methods=["GET"])
 def upcoming_matches():
     name = "hltv_upcoming_matches"
     path = "upcoming_matches"
@@ -61,8 +61,8 @@ def upcoming_matches():
 today = datetime.date.today()
 
 
-@app.route("/news", defaults={"year": today.year, "month": today.strftime("%B")})
-@app.route("/news/<year>/<month>")
+@app.route("/news/", defaults={"year": today.year, "month": today.strftime("%B")})
+@app.route("/news/<year>/<month>/")
 @limiter.limit("1 per second")
 def news(year: str, month: str):
     name = "hltv_news"
@@ -73,7 +73,7 @@ def news(year: str, month: str):
     return jsonify(SM.get_result(path))
 
 
-@app.route("/team/<name>", methods=["GET"])
+@app.route("/team/<name>/", methods=["GET"])
 @limiter.limit("1 per second")
 def team(name: str):
     spider_name = "hltv_teams_search"
@@ -90,8 +90,8 @@ def team(name: str):
     return jsonify(profiles)
 
 
-@app.route("/team/matches/<id>", defaults={"offset": 0})
-@app.route("/team/matches/<id>/<offset>", methods=["GET"])
+@app.route("/team/matches/<id>/", defaults={"offset": 0})
+@app.route("/team/matches/<id>/<offset>/", methods=["GET"])
 @limiter.limit("1 per second")
 def team_matches(id: str, offset: int):
     name = "hltv_team_matches"
@@ -102,7 +102,7 @@ def team_matches(id: str, offset: int):
     return jsonify(SM.get_result(path))
 
 
-@app.route("/profile/team/<id>/<team>", methods=["GET"])
+@app.route("/profile/team/<id>/<team>/", methods=["GET"])
 @limiter.limit("1 per second")
 def team_profile(id: str, team: str):
     name = "hltv_team"
@@ -113,7 +113,7 @@ def team_profile(id: str, team: str):
     return jsonify(SM.get_result(path))
 
 
-@app.route("/player/<name>", methods=["GET"])
+@app.route("/player/<name>/", methods=["GET"])
 @limiter.limit("1 per second")
 def player(name: str):
     name = name.lower()
@@ -130,7 +130,7 @@ def player(name: str):
     return jsonify(profiles)
 
 
-@app.route("/profile/player/<id>/<player>", methods=["GET"])
+@app.route("/profile/player/<id>/<player>/", methods=["GET"])
 @limiter.limit("1 per second")
 def player_profile(id: str, player: str):
     name = "hltv_player"
@@ -140,7 +140,7 @@ def player_profile(id: str, player: str):
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
 
-@app.route("/match/<id>/<match>", methods=["GET"])
+@app.route("/match/<id>/<match>/", methods=["GET"])
 def match(id: str, match: str):
     name = "hltv_match"
     match_link = f"{id}/{match}"
