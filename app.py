@@ -48,7 +48,7 @@ def top30():
     return jsonify(SM.get_result(path))
 
 
-@app.route("/upcoming_matches/", methods=["GET"])
+@app.route("/matches/upcoming/", methods=["GET"])
 def upcoming_matches():
     name = "hltv_upcoming_matches"
     path = "upcoming_matches"
@@ -140,6 +140,7 @@ def player_profile(id: str, player: str):
     SM.execute(name, path, args)
     return jsonify(SM.get_result(path))
 
+# Route for ended matches
 @app.route("/match/<id>/<match>/", methods=["GET"])
 def match(id: str, match: str):
     name = "hltv_match"
