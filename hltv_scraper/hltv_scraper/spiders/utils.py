@@ -22,4 +22,4 @@ def update_json_data(filename: str, data: dict):
 
 
 def is_team_in_upcoming_match(match):
-    return match.css("div.team1 .matchTeamName::text").get() is not None
+    return match.css("div.team1 .match-teamname::text").get() is not None
