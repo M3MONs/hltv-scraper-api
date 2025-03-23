@@ -7,9 +7,9 @@ class UpcomingMatchParser(Parser):
     def parse(match):
         if is_team_in_upcoming_match(match):
             return {
-                "hour": match.css("div.matchTime::text").get(),
-                "meta": match.css("div.matchMeta::text").get(),
-                "event": match.css("div.matchEventName::text").get(),
+                "hour": match.css("div.match-time::text").get(),
+                "meta": match.css("div.match-meta::text").get(),
+                "event": match.css("div.match-event::attr(data-event-headline)").get(),
                 "team1": UMTP.parse(match, 1),
                 "team2": UMTP.parse(match, 2),
             }

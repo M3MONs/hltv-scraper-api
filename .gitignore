@@ -162,3 +162,5 @@ cython_debug/
 hltv_scraper/*.json
 hltv_scraper/*/*.json
 .vscode/
+
+data/**/*.json

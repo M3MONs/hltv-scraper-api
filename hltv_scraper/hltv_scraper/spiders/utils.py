@@ -1,7 +1,10 @@
 import json, os
 
 def update_json_data(filename: str, data: dict):
-    file = f"{filename}.json"
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "data")
+    os.makedirs(data_dir, exist_ok=True)
+    
+    file = os.path.join(data_dir, f"{filename}.json")
     existing_data = {}
 
     try:
@@ -19,4 +22,4 @@ def update_json_data(filename: str, data: dict):
 
 
 def is_team_in_upcoming_match(match):
-    return match.css("div.team1 .matchTeamName::text").get() is not None
+    return match.css("div.team1 .match-teamname::text").get() is not None
