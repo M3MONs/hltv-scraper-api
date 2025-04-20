@@ -35,11 +35,11 @@ def results(offset: int):
 #     SM.execute(name, path, args)
 #     return jsonify(SM.get_result(path))
 
-
-@app.route(f"{API_PREFIX}/teams/rankings", methods=["GET"])
-def top30():
-    name = "hltv_top30"
-    path = "top_teams"
+@app.route(f"{API_PREFIX}/teams/rankings", defaults={"type": "hltv"})
+@app.route(f"{API_PREFIX}/teams/rankings/<string:type>", methods=["GET"])
+def top30(type: str):
+    name = "hltv_valve_ranking" if type == "valve" else "hltv_top30"
+    path = f"rankings/{type}"
     args = f"-o {DATA_DIR}/{path}.json"
 
     SM.execute(name, path, args)
