@@ -16,6 +16,7 @@ from .team_results import TeamResultsParser
 from .team_profile import TeamProfileParser
 from .teams_profile_link import TeamProfileLinkParser
 from .upcoming_match import UpcomingMatchParser
+from .upcoming_matches import UpcomingMatchesParser
 
 class ParsersFactory:
     @staticmethod
@@ -54,5 +55,7 @@ class ParsersFactory:
             return TeamProfileLinkParser()
         elif parser_name == "upcoming_match":
             return UpcomingMatchParser()
+        elif parser_name == "upcoming_matches":
+            return UpcomingMatchesParser()
         else:
             raise ValueError(f"Unknown parser name: {parser_name}")
