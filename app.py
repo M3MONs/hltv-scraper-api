@@ -25,15 +25,14 @@ def results(offset: int):
     return jsonify(SM.get_result(path))
 
 
-# TODO: Check if this route is needed
-# @app.route("/results/big/", methods=["GET"])
-# def big_results():
-#     name = "hltv_big_results"
-#     path = "big_results"
-#     args = f"-o {DATA_DIR}/{path}.json"
+@app.route(f"{API_PREFIX}/results/featured/", methods=["GET"])
+def big_results():
+    name = "hltv_big_results"
+    path = "big_results"
+    args = f"-o {DATA_DIR}/{path}.json"
 
-#     SM.execute(name, path, args)
-#     return jsonify(SM.get_result(path))
+    SM.execute(name, path, args)
+    return jsonify(SM.get_result(path))
 
 @app.route(f"{API_PREFIX}/teams/rankings", defaults={"type": "hltv", "year": "", "month": "", "day": 0})
 @app.route(f"{API_PREFIX}/teams/rankings/<string:type>", defaults={"year": "", "month": "", "day": 0})
