@@ -4,7 +4,7 @@ from .team import TeamParser
 
 class MatchParser(Parser):
     @staticmethod
-    def parse(result, date:str):
+    def parse(result, date:str = None) -> dict:
         return {
             "id": result.css("a.a-reset::attr(href)").re_first(r"/matches/(\d+)"),
             "link": result.css("a.a-reset::attr(href)").get(),
