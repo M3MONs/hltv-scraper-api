@@ -36,4 +36,15 @@ class RankingDateFormatter(DateFormatter):
         return standard_date
 
 
-# TODO: Implement date formatter for upcoming matches
+class UpcomingMatchDateFormatter(DateFormatter):
+    @staticmethod
+    def format(date: str) -> str:
+        # Example date format: "Sunday - 2025-05-04"
+        match_date = re.search(r"(\w+)\s-\s(\d{4}-\d{2}-\d{2})", date)
+        if match_date:
+            _, date_str = match_date.groups()
+            date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+            standard_date = date_obj.strftime("%Y-%m-%d")
+            return standard_date
+        else:
+            return None
