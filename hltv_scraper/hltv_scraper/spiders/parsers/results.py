@@ -8,7 +8,9 @@ class ResultsParser(Parser):
         all_results = []
         for sublist in sublists:
             date = sublist.css(".standard-headline::text").get()
-            standard_date = ResultDateFormatter.format(date)
+            standard_date = None
+            if date:
+                standard_date = ResultDateFormatter.format(date)
             
             matches = [MP.parse(result, standard_date) for result in sublist.css("a.a-reset")]
             all_results.extend(matches)
