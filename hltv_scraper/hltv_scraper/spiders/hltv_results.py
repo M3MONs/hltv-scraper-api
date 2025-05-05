@@ -13,4 +13,5 @@ class HltvResultsSpider(scrapy.Spider):
 
     def parse(self, response):
         sublists = response.css("div.allres .results-sublist")
-        yield PF.get_parser("results").parse(sublists)
+        results = PF.get_parser("results").parse(sublists)
+        yield from results

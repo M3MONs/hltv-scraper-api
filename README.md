@@ -1,7 +1,7 @@
 # hltv-api
 An unofficial python flask api for popular CS2 website hltv.org.
 
-# Instalation
+# Installation
 **Prerequisites:** Python 3.x (check with `python --version` or `python3 --version`)
 
 ```bash
@@ -11,27 +11,72 @@ pip install -r requirements.txt
 python app.py
 ```
 
-# Examples 
-## Top teams
-```python
-@app.route("/teams/top/", methods=["GET"])
-```
-![image](https://github.com/M3MONs/hltv-api/assets/67465063/d9c56b83-4037-40f6-94ff-67f4d6df7be1)
+# Examples
 
-## Team
-```python
-@app.route("/team/<name>/", methods=["GET"])
+## Top teams (ranking)
+```http
+GET /api/v1/teams/rankings
 ```
-![image](https://github.com/M3MONs/hltv-api/assets/67465063/b240e586-f116-4e47-bb83-8cbbcbdf7296)
+Returns the HLTV or VALVE team ranking.
+![ranking](https://github.com/user-attachments/assets/829c924d-7730-468b-be57-75586fb242b2)
+
+
+## Team Search
+```http
+GET /api/v1/teams/search/<name>
+```
+Searches for a team by name.
+
+## Team Profile
+```http
+GET /api/v1/teams/<id>/<team_name>
+```
+Returns the team profile.
+
+## Team matches
+```http
+GET /api/v1/teams/<id>/matches
+GET /api/v1/teams/<id>/matches/<offset>
+```
+Returns a list of team matches (optionally with an offset).
 
 ## Results
-```python
-@app.route("/results", methods=["GET"])
+```http
+GET /api/v1/results/
+GET /api/v1/results/<offset>
 ```
-![image](https://github.com/M3MONs/hltv-api/assets/67465063/fc70a2ad-f872-4609-a957-d4ada8fc03a0)
+Returns the results of HLTV matches.
+![results](https://github.com/user-attachments/assets/020eb6fb-8c11-409d-a2d6-5685d5a44385)
+
+
+## Featured Results
+```http
+GET /api/v1/results/featured
+```
+Returns featured results.
+![results_featured](https://github.com/user-attachments/assets/cc3b7740-6045-4401-83c7-515043b2b794)
+
 
 ## Upcoming matches
-```python
-@app.route("/matches/upcoming/", methods=["GET"])
+```http
+GET /api/v1/matches/upcoming
 ```
-![image](https://github.com/M3MONs/hltv-api/assets/67465063/df278720-4ba6-4375-8676-711cf517de78)
+Returns upcoming matches.
+
+## Match details
+```http
+GET /api/v1/matches/<id>/<match_name>
+```
+Returns details of the selected match.
+
+## Player Search
+```http
+GET /api/v1/players/search/<name>
+```
+Searches for a player by name.
+
+## Player Profile
+```http
+GET /api/v1/players/<id>/<player_name>
+```
+Returns the player profile.
