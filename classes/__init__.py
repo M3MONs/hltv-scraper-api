@@ -4,7 +4,6 @@ from .path_generator import JsonFilePathGenerator, FilePathGenerator
 from .conditions_checker import AnyConditionsChecker as ConditionsChecker
 from .conditions_factory import ConditionFactory
 from .process import SpiderProcess
-from .spider_manager import SpiderManager
 
 __all__ = [
     "JsonOldDataCleaner",
@@ -13,7 +12,6 @@ __all__ = [
     "ConditionsChecker",
     "ConditionFactory",
     "SpiderProcess",
-    "SpiderManager",
     "OldDataCleaner",
     "FilePathGenerator",
     "DataLoader",
