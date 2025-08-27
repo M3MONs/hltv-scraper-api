@@ -11,7 +11,7 @@ cssselect==1.3.0
 defusedxml==0.7.1
 Deprecated==1.2.18
 filelock==3.18.0
-Flask==3.1.0
+flask>=3.1.1
 Flask-Limiter==3.12
 h11==0.16.0
 hyperlink==21.0.0
@@ -40,14 +40,14 @@ Pygments==2.19.1
 pyOpenSSL==25.0.0
 PySocks==1.7.1
 queuelib==1.7.0
-requests==2.32.3
+requests>=2.32.4
 requests-file==2.1.0
 rich==13.9.4
 Scrapy==2.12.0
 scrapy-selenium==0.0.7
 selenium==4.30.0
 service-identity==24.2.0
-setuptools==77.0.3
+setuptools>=78.1.1
 sniffio==1.3.1
 sortedcontainers==2.4.0
 tldextract==5.1.3
@@ -55,7 +55,7 @@ trio==0.29.0
 trio-websocket==0.12.2
 Twisted==24.11.0
 typing_extensions==4.12.2
-urllib3==2.3.0
+urllib3>=2.5.0
 w3lib==2.3.1
 websocket-client==1.8.0
 Werkzeug==3.1.3
