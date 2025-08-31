@@ -1,6 +1,7 @@
 import scrapy
 from typing import Any
-from scrapy_selenium import SeleniumRequest
+import cloudscraper
+from scrapy.http.response.html import HtmlResponse
 from .parsers import ParsersFactory as PF
 
 
@@ -13,11 +14,22 @@ class HltvMatchSpider(scrapy.Spider):
         super().__init__(**kwargs)
 
     def start_requests(self):
+        scraper = cloudscraper.create_scraper()
         for url in self.start_urls:
-            yield SeleniumRequest(
-                url=url,
-                callback=self.parse,
-            )
+            try:
+                response_data = scraper.get(url)
+                response = HtmlResponse(
+                    url=url,
+                    body=response_data.content,
+                    encoding='utf-8'
+                )
+                yield from self.parse(response)
+            except Exception as e:
+                self.logger.error(f"Error fetching {url}: {e}")
+                yield scrapy.Request(
+                    url=url,
+                    callback=self.parse,
+                )
 
     def parse(self, response):
         teams_box = PF.get_parser("match_teams_box").parse(response.css(".teamsBox"))

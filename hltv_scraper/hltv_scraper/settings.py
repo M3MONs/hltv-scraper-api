@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "hltv_scraper.spiders"
 USER_AGENT = "hltv_scraper (+https://www.hltv.org/)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
