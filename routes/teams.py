@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, current_app
+from typing import Any, cast
 
 from config import API_PREFIX, DATA_DIR
 from services.utils import execute_spider
@@ -19,7 +20,7 @@ def top30(type: str, year: str = "", month: str = "", day: int = 0):
 @teams_bp.route("/search/<string:name>", methods=["GET"])
 def search_team(name: str):
     """Search team profiles by name from HLTV."""
-    sm = current_app.spider_manager
+    sm = cast(Any, current_app).spider_manager
     name = name.lower()
 
     if not sm.is_profile("teams_profile", name):
