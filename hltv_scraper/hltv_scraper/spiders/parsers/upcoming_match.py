@@ -4,7 +4,7 @@ from ..utils import is_team_in_upcoming_match
 
 class UpcomingMatchParser(Parser):
     @staticmethod
-    def parse(match, date: str = None):
+    def parse(match, date: str = ""):
         if is_team_in_upcoming_match(match):
             return {
                 "hour": match.css("div.match-time::text").get(),

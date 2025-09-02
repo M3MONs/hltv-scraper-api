@@ -9,7 +9,7 @@ class UpcomingMatchesParser(Parser):
 
         for sublist in matches_sublists:
             date = sublist.css(".matches-list-headline::text").get()
-            standard_date = None
+            standard_date = ""
 
             if date:
                 standard_date = UpcomingMatchDateFormatter.format(date)
