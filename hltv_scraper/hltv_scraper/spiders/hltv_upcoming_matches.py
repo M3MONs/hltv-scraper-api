@@ -25,5 +25,5 @@ class HltvUpcomingMatchesSpider(scrapy.Spider):
     def parse(self, response):
         matches_sections = response.css("div.matches-list-section")
         
-        upcoming_matches = PF.get_parser("upcoming_matches").parse(matches_sections)
+        upcoming_matches = PF.get_parser("upcoming_matches").parse(matches_sections) or []
         yield from upcoming_matches
