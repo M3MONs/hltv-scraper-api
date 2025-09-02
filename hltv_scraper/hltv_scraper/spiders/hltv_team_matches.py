@@ -13,5 +13,5 @@ class HltvTeamMatchesSpider(scrapy.Spider):
 
     def parse(self, response):
         results = response.css(".results-all .a-reset")
-        data = PF.get_parser("team_results").parse(results)
+        data = PF.get_parser("team_results").parse(results) or []
         yield from data

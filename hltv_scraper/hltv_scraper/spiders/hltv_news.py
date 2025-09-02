@@ -15,4 +15,4 @@ class HltvNewsSpider(scrapy.Spider):
     def parse(self, response):
         articles = response.css(".article")
         data = PF.get_parser("news").parse(articles)
-        yield from data
+        yield from data or []

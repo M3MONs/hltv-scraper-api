@@ -13,17 +13,24 @@ class ResultDateFormatter(DateFormatter):
     @staticmethod
     def format(date: str) -> str:
         match_date = re.search(r"(\w+)\s(\d+)[a-z]{2}\s(\d{4})", date)
+        
+        if not match_date:
+            raise ValueError(f"Date string not in expected format for ResultDateFormatter: {date!r}")
+        
         month, day, year = match_date.groups()
         date_obj = datetime.strptime(f"{month} {day} {year}", "%B %d %Y")
         standard_date = date_obj.strftime("%Y-%m-%d")
         return standard_date
-
-
+    
 class RankingDateFormatter(DateFormatter):
     @staticmethod
     # date format: "Counter-Strike World ranking on April 14th, 2025" or "Valve global ranking on April 21st, 2025"
     def format(date: str) -> str:
         match_date = re.search(r"on\s(\w+\s\d+)", date)
+        
+        if not match_date:
+            raise ValueError(f"Date string not in expected format for RankingDateFormatter: {date!r}")
+        
         month_day = match_date.group(1)
 
         month, day = month_day.split()
@@ -47,4 +54,4 @@ class UpcomingMatchDateFormatter(DateFormatter):
             standard_date = date_obj.strftime("%Y-%m-%d")
             return standard_date
         else:
-            return None
+            return ""

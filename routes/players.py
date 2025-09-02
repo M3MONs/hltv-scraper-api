@@ -1,14 +1,14 @@
 from flask import Blueprint, jsonify, current_app
+from typing import Any, cast
 
 from config import API_PREFIX, DATA_DIR
 from services.utils import execute_spider
 
 players_bp = Blueprint("players", __name__, url_prefix=f"{API_PREFIX}/players")
-
 @players_bp.route("/search/<string:name>", methods=["GET"])
 def player(name: str):
     """Search player profiles by name from HLTV."""
-    sm = current_app.spider_manager
+    sm = cast(Any, current_app).spider_manager
     name = name.lower()
     spider_name = "hltv_players_search"
 

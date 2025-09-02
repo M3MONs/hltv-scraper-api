@@ -4,9 +4,10 @@ from services.spider_manager import SpiderManager
 
 def create_app():
     app = Flask(__name__)
-    app.json.sort_keys = False
     
-    app.spider_manager = SpiderManager(BASE_DIR)
+    app.json.sort_keys = False # type: ignore
+    
+    app.spider_manager = SpiderManager(BASE_DIR) # type: ignore
 
     from routes.teams import teams_bp
     from routes.players import players_bp

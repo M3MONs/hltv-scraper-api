@@ -8,7 +8,7 @@ class ResultsParser(Parser):
         all_results = []
         for sublist in sublists:
             date = sublist.css(".standard-headline::text").get()
-            standard_date = None
+            standard_date = ""
             if date:
                 standard_date = ResultDateFormatter.format(date)
             

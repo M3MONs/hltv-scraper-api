@@ -1,9 +1,10 @@
 from abc import ABC
+from typing import Any
 
 
 class OldDataCleaner(ABC):
     @staticmethod
-    def clean():
+    def clean(_: Any):
         pass
 
 
