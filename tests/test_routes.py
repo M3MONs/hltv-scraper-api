@@ -10,11 +10,11 @@ class TestRoutesEndpoints:
         mock_data = {"teams": ["Natus Vincere", "Astralis", "FaZe Clan"]}
         
         with app.app_context():
-            with patch('services.utils.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.execute.return_value = None
-                mock_spider_manager.get_result.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.execute.return_value = None
+                mock_manager.get_result.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/teams/rankings')
                 
@@ -28,11 +28,11 @@ class TestRoutesEndpoints:
         mock_data = {"matches": [{"team1": "NAVI", "team2": "Astralis", "date": "2023-08-30"}]}
         
         with app.app_context():
-            with patch('services.utils.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.execute.return_value = None
-                mock_spider_manager.get_result.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.execute.return_value = None
+                mock_manager.get_result.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/matches/upcoming')
                 
@@ -46,11 +46,11 @@ class TestRoutesEndpoints:
         mock_data = {"news": [{"title": "Major tournament announced", "date": "2023-08-30"}]}
         
         with app.app_context():
-            with patch('services.utils.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.execute.return_value = None
-                mock_spider_manager.get_result.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.execute.return_value = None
+                mock_manager.get_result.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/news')
                 
@@ -64,11 +64,11 @@ class TestRoutesEndpoints:
         mock_data = {"results": [{"team1": "NAVI", "team2": "Astralis", "score": "16-14"}]}
         
         with app.app_context():
-            with patch('services.utils.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.execute.return_value = None
-                mock_spider_manager.get_result.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.execute.return_value = None
+                mock_manager.get_result.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/results/')
                 
@@ -82,11 +82,11 @@ class TestRoutesEndpoints:
         mock_data = {"player": "s1mple", "team": "NAVI", "rating": 1.25}
         
         with app.app_context():
-            with patch('routes.players.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.is_profile.return_value = True
-                mock_spider_manager.get_profile.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.is_profile.return_value = True
+                mock_manager.get_profile.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/players/search/s1mple')
                 
@@ -97,26 +97,27 @@ class TestRoutesEndpoints:
     def test_player_search_not_found(self, client, app):
         """Test player search when player is not found."""
         with app.app_context():
-            with patch('routes.players.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.is_profile.return_value = False
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.is_profile.return_value = False
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/players/search/nonexistent')
                 
-                assert response.status_code == 200
-                assert response.data == b"Player not found!"
+                assert response.status_code == 404
+                data = json.loads(response.data)
+                assert data == {"error": "Player not found!"}
 
     def test_team_search_success(self, client, app):
         """Test team search with successful result."""
         mock_data = {"team": "NAVI", "country": "Ukraine", "players": ["s1mple", "electronic"]}
         
         with app.app_context():
-            with patch('routes.teams.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.is_profile.return_value = True
-                mock_spider_manager.get_profile.return_value = mock_data
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.is_profile.return_value = True
+                mock_manager.get_profile.return_value = mock_data
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/teams/search/navi')
                 
@@ -127,10 +128,10 @@ class TestRoutesEndpoints:
     def test_team_search_not_found(self, client, app):
         """Test team search when team is not found."""
         with app.app_context():
-            with patch('routes.teams.current_app') as mock_current_app:
-                mock_spider_manager = Mock()
-                mock_spider_manager.is_profile.return_value = False
-                mock_current_app.spider_manager = mock_spider_manager
+            with patch('hltv_scraper.HLTVScraper._get_manager') as mock_get_manager:
+                mock_manager = Mock()
+                mock_manager.is_profile.return_value = False
+                mock_get_manager.return_value = mock_manager
                 
                 response = client.get('/api/v1/teams/search/nonexistent')
                 

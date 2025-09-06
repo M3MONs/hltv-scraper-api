@@ -1,16 +1,21 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
+from typing import Optional
 
-from config import API_PREFIX, DATA_DIR, TODAY
-from services.utils import execute_spider
+from hltv_scraper import HLTVScraper
 
-news_bp = Blueprint("news", __name__, url_prefix=f"{API_PREFIX}/news")
+news_bp = Blueprint("news", __name__, url_prefix="/api/v1/news")
 
-@news_bp.route("", defaults={"year": TODAY.year, "month": TODAY.strftime("%B")})
+@news_bp.route("", defaults={"year": None, "month": None})
 @news_bp.route("<int:year>/<string:month>/")
-def news(year: str, month: str):
+def news(year: Optional[int] = None, month: Optional[str] = None):
     """Get news from HLTV."""
-    name = "hltv_news"
-    path = f"news/news_{year}_{month}"
-    args = f"-a year={year} -a month={month} -o {DATA_DIR}/{path}.json"
-
-    return execute_spider(name, path, args)
+    if year is None or month is None:
+        from datetime import datetime
+        now = datetime.now()
+        year = now.year
+        month = now.strftime("%B")
+    try:
+        data = HLTVScraper.get_news(year, month)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
