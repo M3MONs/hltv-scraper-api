@@ -1,6 +1,5 @@
 import pytest
 import requests
-import os
 
 
 class TestEnvironmentSetup:
@@ -19,18 +18,6 @@ class TestEnvironmentSetup:
             print(f"HLTV.org is accessible (status: {response.status_code})")
         except requests.RequestException as e:
             pytest.skip(f"HLTV.org is not accessible: {e}")
-
-    def test_virtual_environment_setup(self):
-        """Test that virtual environment has required packages"""
-        venv_path = "/home/alan/Coding/hltv/env"
-        assert os.path.exists(venv_path), "Virtual environment not found"
-        
-        # Check if scrapy is installed in venv
-        scrapy_path = os.path.join(venv_path, "bin", "scrapy")
-        if os.path.exists(scrapy_path):
-            print("Scrapy found in virtual environment")
-        else:
-            print("Scrapy not found in virtual environment - integration tests will be limited")
 
 
 class TestAPIEndpointsBasic:

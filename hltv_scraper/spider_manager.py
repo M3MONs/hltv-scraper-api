@@ -1,17 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from classes import (
-    OldDataCleaner,
-    ConditionsChecker,
-    JsonOldDataCleaner,
-    JsonDataLoader,
-    JsonFilePathGenerator,
-    FilePathGenerator,
-    SpiderProcess,
-    DataLoader,
-    ConditionFactory as CF,
-)
+from .cleaner import OldDataCleaner, JsonOldDataCleaner
+from .data import JsonDataLoader, DataLoader
+from .path_generator import JsonFilePathGenerator, FilePathGenerator
+from .conditions_checker import AnyConditionsChecker as ConditionsChecker
+from .conditions_factory import ConditionFactory as CF
+from .process import SpiderProcess
 
 
 class Manager(ABC):
@@ -80,6 +75,7 @@ class SpiderManager(Manager):
             SpiderProcess().execute(name, self.dir, args)
 
     def get_result(self, path: str) -> dict:
+        print(self.path.generate(path))
         return self.loader.load(self.path.generate(path))
 
     def get_profile(self, filename: str, profile: str) -> dict:
