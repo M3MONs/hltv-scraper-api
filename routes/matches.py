@@ -1,26 +1,23 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
-from config import API_PREFIX, DATA_DIR
-from services.utils import execute_spider
+from hltv_scraper import HLTVScraper
 
-matches_bp = Blueprint("matches", __name__, url_prefix=f"{API_PREFIX}/matches")
+matches_bp = Blueprint("matches", __name__, url_prefix="/api/v1/matches")
 
 @matches_bp.route("/upcoming", methods=["GET"])
 def upcoming_matches():
     """Get upcoming matches from HLTV."""
-    name = "hltv_upcoming_matches"
-    path = "upcoming_matches"
-    args = f"-o {DATA_DIR}/{path}.json"
-
-    return execute_spider(name, path, args)
+    try:
+        data = HLTVScraper.get_upcoming_matches()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @matches_bp.route("/<string:id>/<string:match_name>", methods=["GET"])
 def match(id: str, match_name: str):
     """Get match details from HLTV."""
-    name = "hltv_match"
-    match_link = f"{id}/{match_name}"
-    path = f"match/{id}_{match_name}"
-    args = f"-a match={match_link} -o {DATA_DIR}/{path}.json"
-
-
-    return execute_spider(name, path, args)
+    try:
+        data = HLTVScraper.get_match(id, match_name)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

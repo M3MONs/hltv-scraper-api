@@ -1,25 +1,24 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
-from config import API_PREFIX, DATA_DIR
-from services.utils import execute_spider
+from hltv_scraper import HLTVScraper
 
-results_bp = Blueprint("results", __name__, url_prefix=f"{API_PREFIX}/results")
+results_bp = Blueprint("results", __name__, url_prefix="/api/v1/results")
 
 @results_bp.route("/", defaults={"offset": 0})
 @results_bp.route("/<int:offset>", methods=["GET"])
 def results(offset: int):
     """Get results from HLTV."""
-    name = "hltv_results"
-    path = f"results/results_{offset}"
-    args = f"-a offset={offset} -o {DATA_DIR}/{path}.json"
-
-    return execute_spider(name, path, args)
+    try:
+        data = HLTVScraper.get_results(offset)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @results_bp.route("/featured", methods=["GET"])
 def big_results():
     """Get featured results from HLTV."""
-    name = "hltv_big_results"
-    path = "big_results"
-    args = f"-o {DATA_DIR}/{path}.json"
-
-    return execute_spider(name, path, args)
+    try:
+        data = HLTVScraper.get_big_results()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
