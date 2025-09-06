@@ -15,7 +15,7 @@ class FilePathGenerator(ABC):
 class JsonFilePathGenerator(FilePathGenerator):
     def __init__(self, base_path: str):
         self.base_path = base_path
-        self.data_dir = os.path.join(os.path.dirname(base_path), "data")
+        self.data_dir = os.path.join(base_path, "data")
         os.makedirs(self.data_dir, exist_ok=True)
 
     def generate(self, filename: str) -> str:
