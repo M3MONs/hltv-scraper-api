@@ -8,7 +8,7 @@ class TableStatsParser(Parser):
         return [
             {
                 "team": table.css(".teamName.team::text").get(),
-                "stats": PlayerStatsParser.parse(table.css("tr[class]:not(.header-row)")),
+                "stats": PlayerStatsParser.parse(table.css("tr:not(.header-row)")),
             }
             for table in table_stats
         ]
