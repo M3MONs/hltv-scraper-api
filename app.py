@@ -1,9 +1,12 @@
 from flask import Flask
+from flasgger import Swagger
 
 def create_app():
     app = Flask(__name__)
     
     app.json.sort_keys = False # type: ignore
+
+    swagger = Swagger(app)
 
     from routes.teams import teams_bp
     from routes.players import players_bp
