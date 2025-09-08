@@ -1,0 +1,9 @@
+tags:
+  - Matches
+responses:
+  200:
+    description: Upcoming matches
+    schema:
+      type: array
+  500:
+    description: Internal server error

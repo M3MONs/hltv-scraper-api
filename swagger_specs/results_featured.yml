@@ -1,0 +1,9 @@
+tags:
+  - Results
+responses:
+  200:
+    description: Featured match results
+    schema:
+      type: array
+  500:
+    description: Internal server error

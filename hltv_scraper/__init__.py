@@ -2,6 +2,17 @@ from typing import Dict, Any
 from datetime import datetime
 
 from .spider_manager import SpiderManager
+from .cache_config import (
+    CACHE_HOURS_NEWS,
+    CACHE_HOURS_MATCHES,
+    CACHE_HOURS_RESULTS,
+    CACHE_HOURS_TEAMS,
+    CACHE_HOURS_PLAYERS,
+    CACHE_HOURS_RANKINGS,
+    CACHE_HOURS_UPCOMING_MATCHES,
+    CACHE_HOURS_TEAM_MATCHES,
+    CACHE_HOURS_BIG_RESULTS,
+)
 
 
 class HLTVScraper:
@@ -20,7 +31,7 @@ class HLTVScraper:
         name = "hltv_upcoming_matches"
         path = "upcoming_matches"
         args = f"-o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_UPCOMING_MATCHES)
         return manager.get_result(path)
 
     @staticmethod
@@ -30,7 +41,7 @@ class HLTVScraper:
         match_link = f"{id}/{match_name}"
         path = f"match/{id}_{match_name}"
         args = f"-a match={match_link} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_MATCHES)
         return manager.get_result(path)
 
     @staticmethod
@@ -39,7 +50,7 @@ class HLTVScraper:
         name = "hltv_valve_ranking" if type == "valve" else "hltv_top30"
         path = f"rankings/{type}" if year == "" and month == "" and day == 0 else f"rankings/{type}_{year}_{month}_{day}"
         args = f"-a year={year} -a month={month} -a day={day} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_RANKINGS)
         return manager.get_result(path)
 
     @staticmethod
@@ -58,7 +69,7 @@ class HLTVScraper:
         name = "hltv_team_matches"
         path = f"team_matches/{id}_{offset}"
         args = f"-a id={id} -a offset={offset} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_TEAM_MATCHES)
         return manager.get_result(path)
 
     @staticmethod
@@ -67,7 +78,7 @@ class HLTVScraper:
         name = "hltv_team"
         path = f"team/{team_name}"
         args = f"-a team=/team/{id}/{team_name} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_TEAMS)
         return manager.get_result(path)
 
     @staticmethod
@@ -76,7 +87,7 @@ class HLTVScraper:
         name = "hltv_results"
         path = f"results/results_{offset}"
         args = f"-a offset={offset} -o ./data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_RESULTS)
         return manager.get_result(path)
 
     @staticmethod
@@ -85,7 +96,7 @@ class HLTVScraper:
         name = "hltv_big_results"
         path = "big_results"
         args = f"-o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_BIG_RESULTS)
         return manager.get_result(path)
 
     @staticmethod
@@ -94,7 +105,7 @@ class HLTVScraper:
         name = "hltv_news"
         path = f"news/news_{year}_{month}"
         args = f"-a year={year} -a month={month} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_NEWS)
         return manager.get_result(path)
 
     @staticmethod
@@ -113,5 +124,5 @@ class HLTVScraper:
         name = "hltv_player"
         path = f"player/{player_name}"
         args = f"-a profile=/player/{id}/{player_name} -o data/{path}.json"
-        manager.execute(name, path, args)
+        manager.execute(name, path, args, CACHE_HOURS_PLAYERS)
         return manager.get_result(path)
