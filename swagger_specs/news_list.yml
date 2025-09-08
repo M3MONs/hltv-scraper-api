@@ -1,0 +1,18 @@
+tags:
+  - News
+parameters:
+  - name: year
+    in: path
+    type: integer
+    description: Year for news (optional, defaults to current year)
+  - name: month
+    in: path
+    type: string
+    description: Month for news (optional, defaults to current month)
+responses:
+  200:
+    description: News articles
+    schema:
+      type: array
+  500:
+    description: Internal server error

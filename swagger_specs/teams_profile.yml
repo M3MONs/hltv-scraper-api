@@ -1,0 +1,20 @@
+tags:
+  - Teams
+parameters:
+  - name: id
+    in: path
+    type: string
+    required: true
+    description: Team ID
+  - name: team_name
+    in: path
+    type: string
+    required: true
+    description: Team name
+responses:
+  200:
+    description: Team profile
+    schema:
+      type: object
+  500:
+    description: Internal server error

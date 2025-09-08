@@ -1,0 +1,15 @@
+tags:
+  - Results
+parameters:
+  - name: offset
+    in: path
+    type: integer
+    default: 0
+    description: Offset for pagination
+responses:
+  200:
+    description: Match results
+    schema:
+      type: array
+  500:
+    description: Internal server error

@@ -1,0 +1,17 @@
+tags:
+  - Teams
+parameters:
+  - name: name
+    in: path
+    type: string
+    required: true
+    description: Team name to search
+responses:
+  200:
+    description: Search results
+    schema:
+      type: array
+  404:
+    description: Team not found
+  500:
+    description: Internal server error

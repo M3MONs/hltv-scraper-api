@@ -1,0 +1,20 @@
+tags:
+  - Teams
+parameters:
+  - name: id
+    in: path
+    type: string
+    required: true
+    description: Team ID
+  - name: offset
+    in: path
+    type: integer
+    default: 0
+    description: Offset for pagination
+responses:
+  200:
+    description: Team matches
+    schema:
+      type: array
+  500:
+    description: Internal server error

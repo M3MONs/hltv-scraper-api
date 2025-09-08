@@ -1,0 +1,20 @@
+tags:
+  - Matches
+parameters:
+  - name: id
+    in: path
+    type: string
+    required: true
+    description: Match ID
+  - name: match_name
+    in: path
+    type: string
+    required: true
+    description: Match name
+responses:
+  200:
+    description: Match details
+    schema:
+      type: object
+  500:
+    description: Internal server error

@@ -1,0 +1,17 @@
+tags:
+  - Players
+parameters:
+  - name: name
+    in: path
+    type: string
+    required: true
+    description: Player name to search
+responses:
+  200:
+    description: Search results
+    schema:
+      type: array
+  404:
+    description: Player not found
+  500:
+    description: Internal server error

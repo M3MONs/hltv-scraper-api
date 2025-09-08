@@ -1,0 +1,27 @@
+tags:
+  - Teams
+parameters:
+  - name: type
+    in: path
+    type: string
+    default: hltv
+    description: Type of ranking (hltv or valve)
+  - name: year
+    in: path
+    type: string
+    description: Year for ranking
+  - name: month
+    in: path
+    type: string
+    description: Month for ranking
+  - name: day
+    in: path
+    type: integer
+    description: Day for ranking
+responses:
+  200:
+    description: Team rankings
+    schema:
+      type: array
+  500:
+    description: Internal server error
