@@ -13,6 +13,11 @@ python app.py
 
 # API Endpoints
 
+## Swagger
+```
+http://127.0.0.1:8000/apidocs/#/
+```
+
 ## Teams
 
 ### Team Rankings
