@@ -56,8 +56,8 @@ class SpiderManager(Manager):
             CF.get("json_file_empty", file_path=path),
         ]
 
-    def __should_run__(self, path: str) -> bool:
-        conditions = self.__get_conditions__(path)
+    def __should_run__(self, path: str, hours: int = 1) -> bool:
+        conditions = self.__get_conditions__(path, hours)
         checker = ConditionsChecker(conditions)
         return checker.check()
 
@@ -67,9 +67,9 @@ class SpiderManager(Manager):
             self.cleaner.clean(path)
         SpiderProcess().execute(name, self.dir, args)
 
-    def execute(self, name: str, path: str, args: str) -> None:
+    def execute(self, name: str, path: str, args: str, hours: int = 1) -> None:
         path = self.path.generate(path)
-        if self.__should_run__(path):
+        if self.__should_run__(path, hours):
             if CF.get("file_exists", file_path=path).check():
                 self.cleaner.clean(path)
             SpiderProcess().execute(name, self.dir, args)
