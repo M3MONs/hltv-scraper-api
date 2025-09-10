@@ -12,6 +12,7 @@ from .cache_config import (
     CACHE_HOURS_UPCOMING_MATCHES,
     CACHE_HOURS_TEAM_MATCHES,
     CACHE_HOURS_BIG_RESULTS,
+    CACHE_HOURS_PLAYER_STATS
 )
 
 
@@ -125,4 +126,13 @@ class HLTVScraper:
         path = f"player/{player_name}"
         args = f"-a profile=/player/{id}/{player_name} -o data/{path}.json"
         manager.execute(name, path, args, CACHE_HOURS_PLAYERS)
+        return manager.get_result(path)
+
+    @staticmethod
+    def get_player_stats_overview(id: str, player_name: str) -> Dict[str, Any]:
+        manager = HLTVScraper._get_manager()
+        name = "hltv_player_stats_overview"
+        path = f"player_stats_overview/{player_name}"
+        args = f"-a profile=/{id}/{player_name} -o data/{path}.json"
+        manager.execute(name, path, args, CACHE_HOURS_PLAYER_STATS)
         return manager.get_result(path)
