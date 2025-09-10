@@ -1,4 +1,6 @@
+import cloudscraper
 import scrapy
+from scrapy.http.response.html import HtmlResponse
 from typing import Any
 from .parsers import ParsersFactory as PF
 
@@ -10,6 +12,24 @@ class HltvPlayerStatsOverviewSpider(scrapy.Spider):
     def __init__(self, profile: str, **kwargs: Any):
         self.start_urls = [f"https://www.hltv.org/stats/players/{profile}"]
         super().__init__(**kwargs)
+        
+    def start_requests(self):
+        scraper = cloudscraper.create_scraper()
+        for url in self.start_urls:
+            try:
+                response_data = scraper.get(url)
+                response = HtmlResponse(
+                    url=url,
+                    body=response_data.content,
+                    encoding='utf-8'
+                )
+                yield from self.parse(response)
+            except Exception as e:
+                self.logger.error(f"Error fetching {url}: {e}")
+                yield scrapy.Request(
+                    url=url,
+                    callback=self.parse,
+                )
 
     def parse(self, response):
         summary_parser = PF.get_parser('player_summary_stats')
