@@ -26,3 +26,12 @@ def player_profile(id: str, player_name: str):
         return jsonify(data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@players_bp.route("/stats/overview/<string:id>/<string:player_name>", methods=["GET"])
+def player_stats_overview(id: str, player_name: str):
+    """Get player statistics overview from HLTV."""
+    try:
+        data = HLTVScraper.get_player_stats_overview(id, player_name)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
