@@ -17,6 +17,9 @@ from .team_profile import TeamProfileParser
 from .teams_profile_link import TeamProfileLinkParser
 from .upcoming_match import UpcomingMatchParser
 from .upcoming_matches import UpcomingMatchesParser
+from .player_sumary_stats import PlayerSummaryStatParser
+from .player_statistics import PlayerStatisticsParser
+from .player_role_stats import PlayerRoleStatsParser
 
 class ParsersFactory:
     @staticmethod
@@ -57,5 +60,11 @@ class ParsersFactory:
             return UpcomingMatchParser()
         elif parser_name == "upcoming_matches":
             return UpcomingMatchesParser()
+        elif parser_name == "player_summary_stats":
+            return PlayerSummaryStatParser()
+        elif parser_name == "player_statistics":
+            return PlayerStatisticsParser()
+        elif parser_name == "player_role_stats":
+            return PlayerRoleStatsParser()
         else:
             raise ValueError(f"Unknown parser name: {parser_name}")
