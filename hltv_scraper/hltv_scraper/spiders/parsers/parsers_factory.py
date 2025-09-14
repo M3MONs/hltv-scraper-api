@@ -20,7 +20,6 @@ from .upcoming_matches import UpcomingMatchesParser
 from .player_sumary_stats import PlayerSummaryStatParser
 from .player_statistics import PlayerStatisticsParser
 from .player_role_stats import PlayerRoleStatsParser
-from .player_featured_rating import PlayerFeaturedRatingParser
 
 class ParsersFactory:
     @staticmethod
@@ -67,7 +66,5 @@ class ParsersFactory:
             return PlayerStatisticsParser()
         elif parser_name == "player_role_stats":
             return PlayerRoleStatsParser()
-        elif parser_name == "player_featured_rating":
-            return PlayerFeaturedRatingParser()
         else:
             raise ValueError(f"Unknown parser name: {parser_name}")
