@@ -40,13 +40,9 @@ class HltvPlayerStatsOverviewSpider(scrapy.Spider):
         
         player_statistics_parser = PF.get_parser('player_statistics')
         player_statistics = player_statistics_parser.parse(response.css("div.statistics"))
-        
-        player_featured_rating_parser = PF.get_parser('player_featured_rating')
-        featured_rating = player_featured_rating_parser.parse(response.css("div.featured-ratings-container"))
 
         yield {
             "summary": summary,
             "role_stats": role_stats,
             "player_statistics": player_statistics,
-            "featured_rating": featured_rating
         }
