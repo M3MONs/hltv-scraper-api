@@ -93,6 +93,12 @@ GET /api/v1/players/<id>/<player_name>
 ```
 Returns the player profile.
 
+### Player Stats Overview
+```http
+GET /api/v1/players/stats/overview/<id>/<player_name>
+```
+Returns the player stats overview.
+
 ## News
 
 ### News
