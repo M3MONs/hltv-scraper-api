@@ -1,0 +1,20 @@
+tags:
+  - Players
+parameters:
+  - name: id
+    in: path
+    type: string
+    required: true
+    description: Player ID
+  - name: player_name
+    in: path
+    type: string
+    required: true
+    description: Player name
+responses:
+  200:
+    description: Player statistics overview
+    schema:
+      type: object
+  500:
+    description: Internal server error

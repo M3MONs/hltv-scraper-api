@@ -28,6 +28,7 @@ def player_profile(id: str, player_name: str):
         return jsonify({"error": str(e)}), 500
 
 @players_bp.route("/stats/overview/<string:id>/<string:player_name>", methods=["GET"])
+@swag_from('../swagger_specs/players_stats_overview.yml')
 def player_stats_overview(id: str, player_name: str):
     """Get player statistics overview from HLTV."""
     try:
