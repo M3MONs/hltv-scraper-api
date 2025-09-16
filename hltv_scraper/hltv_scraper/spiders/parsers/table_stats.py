@@ -1,9 +1,10 @@
+from typing import Any
 from .parser import Parser
 from .player_stats import PlayerStatsParser
 
 class TableStatsParser(Parser):
     @staticmethod
-    def parse(response):
+    def parse(response) -> list[dict[str, Any]]:
         table_stats = response.css(".table.totalstats")
         return [
             {

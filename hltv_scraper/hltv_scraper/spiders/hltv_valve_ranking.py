@@ -1,3 +1,4 @@
+from typing import Any, Generator
 import scrapy
 
 from .parsers.date import RankingDateFormatter
@@ -8,14 +9,14 @@ class HltvValveRankingSpider(scrapy.Spider):
     name = "hltv_valve_ranking"
     allowed_domains = ["www.hltv.org"]
 
-    def __init__(self, year=None, month=None, day=None, *args, **kwargs):
+    def __init__(self, year=None, month=None, day=None, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         if year != "" and month != "" and day != 0:
             self.start_urls = [f"https://www.hltv.org/valve-ranking/teams/{year}/{month}/{day}"]
         else:
             self.start_urls = ["https://www.hltv.org/valve-ranking/teams"]
 
-    def parse(self, response):
+    def parse(self, response) -> Generator[dict[str, Any], Any, None]:
         ranked_teams = response.css("div.ranked-team.standard-box")
         prev_ranking = response.css("div.ranking-prev-next a.pagination-prev::attr(href)").re_first(r"/valve-ranking/teams/(\d{4}/\w+/\d+)")
         next_ranking = response.css("div.ranking-prev-next a.pagination-next::attr(href)").re_first(r"/valve-ranking/teams/(\d{4}/\w+/\d+)")

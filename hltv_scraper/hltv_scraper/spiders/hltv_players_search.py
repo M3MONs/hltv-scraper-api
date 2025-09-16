@@ -8,12 +8,12 @@ class HltvPlayersSearchSpider(scrapy.Spider):
     name = "hltv_players_search"
     allowed_domains = ["www.hltv.org"]
 
-    def __init__(self, player: str | None = None, **kwargs: Any):
+    def __init__(self, player: str | None = None, **kwargs: Any) -> None:
         self.start_urls = [f"https://www.hltv.org/search?query={player}"]
         self.player_search = player
         super().__init__(**kwargs)
 
-    def parse(self, response):
+    def parse(self, response) -> None:
         profiles = PF.get_parser("player_profile_link").parse(response, self.player_search)
 
         if not profiles:

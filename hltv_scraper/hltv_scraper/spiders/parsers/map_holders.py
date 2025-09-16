@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class MapHoldersParser(Parser):
     @staticmethod
-    def parse(response):
+    def parse(response) -> list[dict[str, Any]]:
         map_holders = response.css(".match-page .mapholder")
         team1 = map_holders.css(".results-left .results-teamname::text").get()
         team2 = map_holders.css(".results-right .results-teamname::text").get()

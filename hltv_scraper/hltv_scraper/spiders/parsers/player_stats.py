@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class PlayerStatsParser(Parser):
     @staticmethod
-    def parse(players):
+    def parse(players) -> list[dict[str, Any]]:
         return [
         {
             "img": player.css(".flag.flag::attr(src)").get(),

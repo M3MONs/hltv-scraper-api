@@ -13,7 +13,7 @@ class Checker(ABC):
 
 # Check if any of the conditions are met
 class AnyConditionsChecker(Checker):
-    def __init__(self, conditions: list[Condition]):
+    def __init__(self, conditions: list[Condition]) -> None:
         self.conditions = conditions
 
     def check(self) -> bool:

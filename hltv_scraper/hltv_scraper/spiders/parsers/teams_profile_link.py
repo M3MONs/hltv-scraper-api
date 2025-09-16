@@ -1,9 +1,10 @@
+from typing import Any
 from .parser import Parser
 
 class TeamProfileLinkParser(Parser):
     @staticmethod
-    def parse(response):
-        teams = response.css(f"div.search a[href^='/team/']")
+    def parse(response) -> list[dict[str, Any]]:
+        teams = response.css("div.search a[href^='/team/']")
         return [
             {
                 "name": team.css("a::text").get(),

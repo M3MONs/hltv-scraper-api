@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class NewsParser(Parser):
     @staticmethod
-    def parse(articles):
+    def parse(articles) -> list[dict[str, Any]]:
         return [
         {
             "title": article.css(".newstext::text").get(),

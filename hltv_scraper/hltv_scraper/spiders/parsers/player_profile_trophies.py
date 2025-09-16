@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class PlayerProfileTrophiesParser(Parser):
     @staticmethod
-    def parse(trophies):
+    def parse(trophies) -> list[dict[str, Any]]:
         return [
         {
             "title": trophy.css("span.trophyDescription::attr(title)").get(),

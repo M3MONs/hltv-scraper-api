@@ -4,7 +4,7 @@ from typing import Any
 
 class OldDataCleaner(ABC):
     @staticmethod
-    def clean(_: Any):
+    def clean(_: Any) -> None:
         pass
 
 

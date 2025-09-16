@@ -1,3 +1,4 @@
+from typing import Any, Generator
 import scrapy
 from .parsers import ParsersFactory as PF
 from scrapy_selenium import SeleniumRequest
@@ -8,7 +9,7 @@ class HltvUpcomingMatchesSpider(scrapy.Spider):
     allowed_domains = ["www.hltv.org"]
     start_urls = ["https://www.hltv.org/matches"]
 
-    def start_requests(self):
+    def start_requests(self) -> Generator[SeleniumRequest, Any, None]:
         yield SeleniumRequest(
             url = self.start_urls[0],
             callback = self.parse,
@@ -22,7 +23,7 @@ class HltvUpcomingMatchesSpider(scrapy.Spider):
             },
         )
 
-    def parse(self, response):
+    def parse(self, response) -> Generator[Any, Any, None]:
         matches_sections = response.css("div.matches-list-section")
         
         upcoming_matches = PF.get_parser("upcoming_matches").parse(matches_sections) or []
