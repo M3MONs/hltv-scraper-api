@@ -9,6 +9,7 @@ class UpcomingMatchParser(Parser):
             return {
                 "hour": match.css("div.match-time::text").get(),
                 "date": date,
+                "link": match.css("a.match-info::attr(href)").get(),
                 "meta": match.css("div.match-meta::text").get(),
                 "event": match.css("div.match-event::attr(data-event-headline)").get(),
                 "team1": UMTP.parse(match, 1),
