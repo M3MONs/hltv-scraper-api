@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class FilePathGenerator(ABC):
     @abstractmethod
-    def __init__(self, base_path: str):
+    def __init__(self, base_path: str) -> None:
         pass
 
     @abstractmethod
@@ -13,7 +13,7 @@ class FilePathGenerator(ABC):
 
 
 class JsonFilePathGenerator(FilePathGenerator):
-    def __init__(self, base_path: str):
+    def __init__(self, base_path: str) -> None:
         self.base_path = base_path
         self.data_dir = os.path.join(base_path, "data")
         os.makedirs(self.data_dir, exist_ok=True)
