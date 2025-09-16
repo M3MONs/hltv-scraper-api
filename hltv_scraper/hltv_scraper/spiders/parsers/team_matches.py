@@ -1,10 +1,11 @@
+from typing import Any
 from .parser import Parser
 from .single_team import SingleTeamParser as STP
 
 
 class TeamMatchesParser(Parser):
     @staticmethod
-    def parse(response):
+    def parse(response) -> list[dict[str, Any]]:
         matches = response.css("tr.team-row")
         return [
             {

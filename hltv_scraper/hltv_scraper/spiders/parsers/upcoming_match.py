@@ -1,10 +1,11 @@
+from typing import Any
 from .parser import Parser
 from .upcoming_match_team import UpcomingMatchTeamParser as UMTP
 from ..utils import is_team_in_upcoming_match
 
 class UpcomingMatchParser(Parser):
     @staticmethod
-    def parse(match, date: str = ""):
+    def parse(match, date: str = "") -> dict[str, Any] | None:
         if is_team_in_upcoming_match(match):
             return {
                 "hour": match.css("div.match-time::text").get(),

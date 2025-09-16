@@ -1,7 +1,8 @@
 import cloudscraper
+from flask import Request
 import scrapy
 from scrapy.http.response.html import HtmlResponse
-from typing import Any
+from typing import Any, Generator
 from .parsers import ParsersFactory as PF
 
 
@@ -12,8 +13,8 @@ class HltvPlayerStatsOverviewSpider(scrapy.Spider):
     def __init__(self, profile: str, **kwargs: Any):
         self.start_urls = [f"https://www.hltv.org/stats/players/{profile}"]
         super().__init__(**kwargs)
-        
-    def start_requests(self):
+
+    def start_requests(self) -> Generator[dict[str, None] | Request, Any, None]:
         scraper = cloudscraper.create_scraper()
         for url in self.start_urls:
             try:

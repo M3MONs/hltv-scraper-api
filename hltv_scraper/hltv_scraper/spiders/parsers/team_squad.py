@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class TeamSquadParser(Parser):
     @staticmethod
-    def parse(response):
+    def parse(response) -> list[dict[str, Any]]:
         players_container = response.css(".bodyshot-team.g-grid a.col-custom")
         return [
             {

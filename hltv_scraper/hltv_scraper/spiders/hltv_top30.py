@@ -1,3 +1,4 @@
+from typing import Any, Generator
 import scrapy
 
 from .parsers.date import RankingDateFormatter
@@ -15,7 +16,7 @@ class HltvTop30Spider(scrapy.Spider):
         else:
             self.start_urls = ["https://www.hltv.org/ranking/teams"]
 
-    def parse(self, response):
+    def parse(self, response) -> Generator[dict[str, Any], Any, None]:
         ranked_teams = response.css("div.ranked-team.standard-box")
         prev_ranking = response.css("div.ranking-prev-next a.pagination-prev::attr(href)").re_first(r"/ranking/teams/(\d{4}/\w+/\d+)")
         next_ranking = response.css("div.ranking-prev-next a.pagination-next::attr(href)").re_first(r"/ranking/teams/(\d{4}/\w+/\d+)")

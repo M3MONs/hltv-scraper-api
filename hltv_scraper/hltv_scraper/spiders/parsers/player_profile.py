@@ -1,3 +1,4 @@
+from typing import Any
 from .parser import Parser
 from .player_profile_trophies import PlayerProfileTrophiesParser as PPTP
 from .player_profile_stats import PlayerProfileStatsParser as PPSP
@@ -5,7 +6,7 @@ from .player_profile_stats import PlayerProfileStatsParser as PPSP
 
 class PlayerProfileParser(Parser):
     @staticmethod
-    def parse(profile):
+    def parse(profile) -> dict[str, Any]:
         return {
             "nick": profile.css("h1.playerNickname::text").get(),
             "name": profile.css("div.playerRealname::text").get(),

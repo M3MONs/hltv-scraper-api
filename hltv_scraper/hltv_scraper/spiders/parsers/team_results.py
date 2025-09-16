@@ -1,8 +1,9 @@
+from typing import Any
 from .parser import Parser
 
 class TeamResultsParser(Parser):
     @staticmethod
-    def parse(results):
+    def parse(results) -> list[dict[str, Any]]:
         return [
         {
             "team1": {

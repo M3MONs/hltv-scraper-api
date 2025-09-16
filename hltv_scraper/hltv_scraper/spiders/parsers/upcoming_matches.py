@@ -1,10 +1,11 @@
+from typing import Any
 from .date import UpcomingMatchDateFormatter
 from .parser import Parser
 from .upcoming_match import UpcomingMatchParser as UMP
 
 class UpcomingMatchesParser(Parser):
     @staticmethod
-    def parse(matches_sublists):
+    def parse(matches_sublists) -> list[dict[str, Any]]:
         all_upcoming_matches = []
 
         for sublist in matches_sublists:

@@ -1,9 +1,10 @@
+from typing import Any
 from .parser import Parser
 
 
 class TeamRankingParser(Parser):
     @staticmethod
-    def parse(team):
+    def parse(team) -> dict[str, Any]:
         return {
             "position": team.css("span.position::text").get(),
             "name": team.css(".name::text").get(),

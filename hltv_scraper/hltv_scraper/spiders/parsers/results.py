@@ -1,10 +1,11 @@
+from typing import Any
 from .date import ResultDateFormatter
 from .parser import Parser
 from .match import MatchParser as MP
 
 class ResultsParser(Parser):
     @staticmethod
-    def parse(sublists):
+    def parse(sublists) -> list[dict[str, Any]]:
         all_results = []
         for sublist in sublists:
             date = sublist.css(".standard-headline::text").get()

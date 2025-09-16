@@ -1,3 +1,4 @@
+from typing import Any, Generator
 import scrapy
 from .parsers import ParsersFactory as PF
 
@@ -7,7 +8,7 @@ class HltvBigResultsSpider(scrapy.Spider):
     allowed_domains = ["www.hltv.org"]
     start_urls = ["https://www.hltv.org/results"]
 
-    def parse(self, response):
+    def parse(self, response) -> Generator[Any, Any, None]:
         sublists = response.css("div.big-results")
         
         results = PF.get_parser("results").parse(sublists) or []

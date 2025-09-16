@@ -1,9 +1,10 @@
+from typing import Any
 import scrapy
 from .parser import Parser
 
 class PlayersProfileParser(Parser):
     @staticmethod
-    def parse(profiles):
+    def parse(profiles) -> list[dict[str, Any]]:
         profiles_data = []
         for profile in profiles:
             selector = scrapy.Selector(text=profile)
