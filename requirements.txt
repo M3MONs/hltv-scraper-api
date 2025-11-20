@@ -44,7 +44,7 @@ queuelib==1.7.0
 requests>=2.32.4
 requests-file==2.1.0
 rich==13.9.4
-Scrapy==2.12.0
+Scrapy==2.13.4
 scrapy-selenium==0.0.7
 selenium==4.30.0
 service-identity==24.2.0
