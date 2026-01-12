@@ -62,7 +62,7 @@ typing_extensions==4.12.2
 urllib3>=2.5.0
 w3lib==2.3.1
 websocket-client==1.8.0
-Werkzeug==3.1.4
+Werkzeug==3.1.5
 wrapt==1.17.2
 wsproto==1.2.0
 zope.interface==7.2
