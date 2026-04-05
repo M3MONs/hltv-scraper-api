@@ -37,7 +37,7 @@ pyasn1==0.6.3
 pyasn1_modules==0.4.1
 pycparser==2.22
 PyDispatcher==2.0.7
-Pygments==2.19.1
+Pygments==2.20.0
 pyOpenSSL==26.0.0
 PySocks==1.7.1
 queuelib==1.7.0
