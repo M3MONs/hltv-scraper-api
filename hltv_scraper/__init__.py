@@ -133,6 +133,6 @@ class HLTVScraper:
         manager = HLTVScraper._get_manager()
         name = "hltv_player_stats_overview"
         path = f"player_stats_overview/{player_name}"
-        args = f"-a profile=/{id}/{player_name} -o data/{path}.json"
+        args = f"-a profile={id}/{player_name} -o data/{path}.json"
         manager.execute(name, path, args, CACHE_HOURS_PLAYER_STATS)
         return manager.get_result(path)
