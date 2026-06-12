@@ -99,6 +99,12 @@ GET /api/v1/players/stats/overview/<id>/<player_name>
 ```
 Returns the player stats overview.
 
+> **Note:** This endpoint requires a valid Cloudflare session. Before using it, run:
+> ```bash
+> python hltv_scraper/hltv_scraper/grab_cf.py
+> ```
+> A browser window will open — solve the Cloudflare challenge if it appears. The session is saved to `hltv_scraper/cf_session.json` and reused by the scraper. If requests start failing with 403, the session has expired — re-run `grab_cf.py` to refresh it.
+
 ## News
 
 ### News
